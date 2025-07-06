@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Allergen Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Food Allergen Tracker</h1>
+        
+        <div class="main-actions">
+            <button id="mealBtn" class="btn btn-primary">Add Meal</button>
+        </div>
+
+        <div class="allergen-status">
+            <h2>Allergen Status</h2>
+            <div class="status-legend">
+                <span class="legend-item safe">
+                    <span class="legend-dot"></span>
+                    Ok
+                </span>
+                <span class="legend-item warning">
+                    <span class="legend-dot"></span>
+                    Due Soon
+                </span>
+                <span class="legend-item danger">
+                    <span class="legend-dot"></span>
+                    Due
+                </span>
+                <span class="legend-item never">
+                    <span class="legend-dot"></span>
+                    Not Started
+                </span>
+            </div>
+            <div id="allergenList" class="allergen-list"></div>
+        </div>
+
+        <div class="meal-history">
+            <h2>Meal History</h2>
+            <div id="mealHistory" class="meal-history-list"></div>
+        </div>
+    </div>
+
+    <div id="mealModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add New Meal</h2>
+            <form id="mealForm">
+                <div class="meal-datetime">
+                    <h4>When was this meal?</h4>
+                    <div class="datetime-inputs">
+                        <input type="date" id="mealDate" class="datetime-input" required>
+                        <input type="time" id="mealTime" class="datetime-input" required>
+                    </div>
+                </div>
+                
+                <div class="allergen-section">
+                    <h4>Which allergens were included?</h4>
+                    <div class="allergen-checkboxes">
+                        <label><input type="checkbox" name="allergens" value="peanuts"> Peanuts</label>
+                        <label><input type="checkbox" name="allergens" value="tree-nuts"> Tree Nuts</label>
+                        <label><input type="checkbox" name="allergens" value="milk"> Milk</label>
+                        <label><input type="checkbox" name="allergens" value="egg-whites"> Egg Whites</label>
+                        <label><input type="checkbox" name="allergens" value="egg-yolks"> Egg Yolks</label>
+                        <label><input type="checkbox" name="allergens" value="soy"> Soy</label>
+                        <label><input type="checkbox" name="allergens" value="wheat"> Wheat</label>
+                        <label><input type="checkbox" name="allergens" value="fish"> Fish</label>
+                        <label><input type="checkbox" name="allergens" value="shellfish"> Shellfish</label>
+                        <label><input type="checkbox" name="allergens" value="sesame"> Sesame</label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Save Meal</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="mealDetailModal" class="modal">
+        <div class="modal-content meal-detail-modal">
+            <span class="close">&times;</span>
+            <h2>Meal Details</h2>
+            <div id="mealDetails"></div>
+            <div id="editDateSection" class="edit-section" style="display: none;">
+                <h4>Edit Date & Time</h4>
+                <div class="datetime-inputs">
+                    <input type="date" id="editDate" class="datetime-input">
+                    <input type="time" id="editTime" class="datetime-input">
+                </div>
+                <div class="edit-actions">
+                    <button id="saveDateBtn" class="btn btn-primary">Save</button>
+                    <button id="cancelEditBtn" class="btn btn-secondary">Cancel</button>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button id="editDateBtn" class="btn btn-primary">Edit Date</button>
+                <button id="deleteMealBtn" class="btn btn-danger">Delete Meal</button>
+                <button id="closeMealDetailBtn" class="btn btn-secondary">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirmDeleteModal" class="modal">
+        <div class="modal-content confirm-modal">
+            <h2>Confirm Delete</h2>
+            <p>Are you sure you want to delete this meal? This action cannot be undone.</p>
+            <div class="modal-actions">
+                <button id="confirmDeleteBtn" class="btn btn-danger">Yes, Delete</button>
+                <button id="cancelDeleteBtn" class="btn btn-secondary">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
