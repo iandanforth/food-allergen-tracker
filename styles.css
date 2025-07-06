@@ -201,6 +201,8 @@ h2 {
     width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,0.4);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .modal-content {
@@ -212,6 +214,9 @@ h2 {
     width: 90%;
     max-width: 500px;
     position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .close {
@@ -278,7 +283,9 @@ h2 {
     
     .modal-content {
         width: 95%;
-        margin: 10% auto;
+        margin: 5% auto;
+        max-height: 95vh;
+        padding: 15px;
     }
     
     .allergen-checkboxes {
@@ -312,6 +319,18 @@ h2 {
         flex-shrink: 0;
         text-align: right;
         margin-left: 10px;
+    }
+    
+    .modal-content {
+        margin: 2% auto;
+        max-height: 98vh;
+        padding: 10px;
+        width: 98%;
+    }
+    
+    .modal-content h2 {
+        font-size: 1.2em;
+        margin-bottom: 15px;
     }
 }
 
