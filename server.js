@@ -176,11 +176,19 @@ app.get('/api/allergen-status', (req, res) => {
             }
             
             const lastDate = new Date(allergenData.last_date);
-            const daysSince = Math.floor((now - lastDate) / (1000 * 60 * 60 * 24));
+            const timeDiff = now - lastDate;
+            const daysSince = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            const hoursSince = Math.floor(timeDiff / (1000 * 60 * 60));
             
             let timeSince;
-            if (daysSince === 0) {
-                timeSince = 'Today';
+            if (hoursSince < 24) {
+                if (hoursSince === 0) {
+                    timeSince = 'Less than 1 hour ago';
+                } else if (hoursSince === 1) {
+                    timeSince = '1 hour ago';
+                } else {
+                    timeSince = `${hoursSince} hours ago`;
+                }
             } else if (daysSince === 1) {
                 timeSince = '1 day ago';
             } else if (daysSince < 7) {
@@ -227,7 +235,7 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.listen(port, '0.0.0.0', () => {
+const server = app.listen(port, '0.0.0.0', () => {
     console.log(`Food Allergen Tracker running on:`);
     console.log(`  - Local:    http://localhost:${port}`);
     console.log(`  - Network:  http://[YOUR_IP_ADDRESS]:${port}`);
@@ -235,6 +243,15 @@ app.listen(port, '0.0.0.0', () => {
     console.log(`  - macOS/Linux: ifconfig | grep "inet " | grep -v 127.0.0.1`);
     console.log(`  - Windows: ipconfig | findstr "IPv4"`);
 });
+
+// Keep-alive settings for better network resilience
+server.keepAliveTimeout = 65000;
+server.headersTimeout = 66000;
+
+// Heartbeat to prevent idle disconnections
+setInterval(() => {
+    console.log(`[${new Date().toISOString()}] Server heartbeat - keeping alive`);
+}, 300000); // Every 5 minutes
 
 process.on('SIGINT', () => {
     db.close();
